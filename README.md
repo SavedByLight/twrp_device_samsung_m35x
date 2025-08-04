@@ -7,7 +7,4 @@
 lunch twrp_m35x-eng
 make recoveryimage
 ```
-# twrp_device_samsung_m35x
-# twrp_device_samsung_m35x
-# twrp_device_samsung_m35x
-# twrp_device_samsung_m35x
+
