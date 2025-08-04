@@ -14,21 +14,19 @@
 # limitations under the License.
 #
 
-PRODUCT_MAKEFILES := \
-<<<<<<< HEAD
-	$(LOCAL_DIR)/twrp_m35x.mk
+# Dynamic partitions
+PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
-COMMON_LUNCH_CHOICES := \
-    omni_m35x-user \
-    omni_m35x-userdebug \
-    omni_m35x-eng
-=======
-	$(LOCAL_DIR)/pbrp_m35x.mk
+# fastbootd
+PRODUCT_PACKAGES += \
+    android.hardware.fastboot@1.0-impl-mock \
+    fastbootd
 
-COMMON_LUNCH_CHOICES := \
-    pbrp_m35x-eng \
-    pbrp_m35x-userdebug \
-    pbrp_m35x-user
+$(call inherit-product, vendor/pb/config/common.mk)
 
+PRODUCT_DEVICE := m35x
+PRODUCT_NAME := pbrp_m35x
+PRODUCT_BRAND := samsung
+PRODUCT_MODEL := Galaxy M35x
 
->>>>>>> 04b2260 (Initial commit)
+$(call inherit-product, device/samsung/m35x/device.mk)
