@@ -15,20 +15,15 @@
 #
 
 PRODUCT_MAKEFILES := \
-<<<<<<< HEAD
 	$(LOCAL_DIR)/twrp_m35x.mk
 
 COMMON_LUNCH_CHOICES := \
-    omni_m35x-user \
-    omni_m35x-userdebug \
-    omni_m35x-eng
-=======
+    twrp_m35x-user \
+    twrp_m35x-userdebug \
+    twrp_m35x-eng
 	$(LOCAL_DIR)/pbrp_m35x.mk
 
 COMMON_LUNCH_CHOICES := \
     pbrp_m35x-eng \
     pbrp_m35x-userdebug \
     pbrp_m35x-user
-
-
->>>>>>> 04b2260 (Initial commit)
