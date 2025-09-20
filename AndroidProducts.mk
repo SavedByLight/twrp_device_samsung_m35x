@@ -21,9 +21,3 @@ COMMON_LUNCH_CHOICES := \
     twrp_m35x-user \
     twrp_m35x-userdebug \
     twrp_m35x-eng
-	$(LOCAL_DIR)/pbrp_m35x.mk
-
-COMMON_LUNCH_CHOICES := \
-    pbrp_m35x-eng \
-    pbrp_m35x-userdebug \
-    pbrp_m35x-user
