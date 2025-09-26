@@ -5,6 +5,7 @@ LOCAL_PATH := device/samsung/m35x
 # Bootloader
 BOARD_VENDOR := samsung
 TARGET_SOC := s5e8835
+
 # -------------------------------------------------------------
 # Vendor / Platform / SOC
 # -------------------------------------------------------------
@@ -32,16 +33,14 @@ TARGET_2ND_CPU_VARIANT := cortex-a53
 TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a53
 
 TARGET_USES_64_BIT_BINDER := true
-
 TARGET_CPU_SMP := true
 ENABLE_CPUSETS := true
 ENABLE_SCHEDBOOST := true
 
-ALLOW_MISSING_DEPENDENCIES := true
-
 # File systems
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery.fstab
 
 # Platform
 TARGET_BOARD_PLATFORM := universal8835
@@ -55,9 +54,7 @@ TARGET_SUPPORTS_64_BIT_APPS := true
 # -------------------------------------------------------------
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
-TARGET_USES_MKE2FS := true
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := erofs
-TARGET_COPY_OUT_VENDOR := vendor
 BOARD_HAS_LARGE_FILESYSTEM := true
 
 # -------------------------------------------------------------
@@ -75,29 +72,17 @@ BOARD_BOOT_HEADER_VERSION := 2
 BOARD_KERNEL_BASE := 0x10000000
 BOARD_KERNEL_CMDLINE := androidboot.selinux=permissive bootconfig buildtime_bootconfig=enable loop.max_part=7
 BOARD_KERNEL_IMAGE_NAME := Image
-
-
-BOARD_KERNEL_IMAGE_NAME := Image
-BOARD_BOOT_HEADER_VERSION := 2
-BOARD_KERNEL_BASE := 0x10000000
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_OFFSET := 0x00008000
 BOARD_RAMDISK_OFFSET := 0x00000000
 BOARD_KERNEL_SECOND_OFFSET := 0xf0000000
 BOARD_KERNEL_TAGS_OFFSET := 0x00000000
 BOARD_DTB_OFFSET := 0x00000000
-BOARD_MKBOOTIMG_ARGS := --kernel_offset $(BOARD_KERNEL_OFFSET) --ramdisk_offset $(BOARD_RAMDISK_OFFSET) 
-BOARD_MKBOOTIMG_ARGS += --tags_offset $(BOARD_KERNEL_TAGS_OFFSET) --second_offset $(BOARD_KERNEL_SECOND_OFFSET)
-BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION) --pagesize $(BOARD_KERNEL_PAGESIZE) --board "SRPXA30A003"
-BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB) --dtb_offset $(BOARD_DTB_OFFSET)
-BOARD_CUSTOM_BOOTIMG_MK := $(LOCAL_PATH)/mkboot/bootimg.mk
 
 # Recovery
-BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 
 # Partitions
-
 BOARD_MKBOOTIMG_ARGS := --kernel_offset $(BOARD_KERNEL_OFFSET)
 BOARD_MKBOOTIMG_ARGS += --ramdisk_offset $(BOARD_RAMDISK_OFFSET)
 BOARD_MKBOOTIMG_ARGS += --tags_offset $(BOARD_KERNEL_TAGS_OFFSET)
@@ -122,15 +107,9 @@ BOARD_SUPER_PARTITION_GROUPS := samsung_dynamic_partitions
 BOARD_SAMSUNG_DYNAMIC_PARTITIONS_SIZE := 12578717696
 BOARD_SAMSUNG_DYNAMIC_PARTITIONS_PARTITION_LIST := system system_ext vendor product odm vendor_dlkm
 
-# System as root
-BOARD_ROOT_EXTRA_FOLDERS := carrier data_mirror debug_ramdisk efs linkerconfig metadata odm_dlkm oem optics postinstall prism second_stage_resources spu system_ext vendor_dlkm system_dlkm
-BOARD_SUPPRESS_SECURE_ERASE := true
-
 # Workaround for error copying vendor files to recovery ramdisk
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := erofs
 TARGET_COPY_OUT_VENDOR := vendor
-
-AB_OTA_UPDATER := false
 
 # Android Verified Boot
 BOARD_ROOT_EXTRA_FOLDERS := carrier data_mirror debug_ramdisk efs linkerconfig metadata odm_dlkm oem optics postinstall prism second_stage_resources spu system_ext vendor_dlkm system_dlkm
@@ -147,23 +126,10 @@ BOARD_AVB_RECOVERY_ROLLBACK_INDEX := 1
 BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION := 1
 BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flag 2
 
-# Crypto
-PLATFORM_SECURITY_PATCH := 2099-12-31
-VENDOR_SECURITY_PATCH := 2099-12-31
-PLATFORM_VERSION := 12
-TW_INCLUDE_CRYPTO := false
-TW_INCLUDE_CRYPTO_FBE := false
-TW_INCLUDE_FBE_METADATA_DECRYPT := false
-BOARD_USES_METADATA_PARTITION := true
-PLATFORM_VERSION_LAST_STABLE := $(PLATFORM_VERSION)
-VENDOR_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)
-BOOT_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)
-TW_USE_FSCRYPT_POLICY := 2
-PLATFORM_VERSION := 14
-
 # PRODUCT_COPY_FILES directives.
 BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
 DISABLE_ARTIFACT_PATH_REQUIREMENTS := true
+ALLOW_MISSING_DEPENDENCIES := true
 
 # Logcat
 TARGET_USES_LOGD    := true
@@ -175,7 +141,6 @@ TW_INCLUDE_RESETPROP := true
 TW_FRAMERATE := 120
 TW_NO_SCREEN_BLANK := true
 TW_THEME := portrait_hdpi
-RECOVERY_SDCARD_ON_DATA := true
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 
 # -------------------------------------------------------------
@@ -188,17 +153,10 @@ TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_USE_TOOLBOX := true
 TW_USE_MODEL_HARDWARE_ID_FOR_DEVICE_ID := true
 TW_EXTRA_LANGUAGES := true
-TW_FRAMERATE := 120
-TW_NO_REBOOT_BOOTLOADER := true
-TW_INCLUDE_RESETPROP := true
 TW_INCLUDE_REPACKTOOLS := true
-TW_EXCLUDE_DEFAULT_USB_INIT := true
 TW_USE_SAMSUNG_HAPTICS := true
 TW_BACKUP_EXCLUSIONS := /data/fonts
 TW_INCLUDE_NTFS_3G := true
-TW_INCLUDE_LOGCAT := true
-TWRP_INCLUDE_LOGCAT := true
-TARGET_USES_LOGD := true
 TW_NO_LEGACY_PROPS := true
 TW_NO_BIND_SYSTEM := true
 TW_INCLUDE_FASTBOOTD := true
@@ -213,68 +171,33 @@ TW_MAX_BRIGHTNESS := 612
 TW_DEFAULT_BRIGHTNESS := 255
 TW_Y_OFFSET := 80
 TW_H_OFFSET := -80
-TW_INCLUDE_FASTBOOTD := true
 TW_NO_REBOOT_BOOTLOADER := true
 TW_USE_NEW_MINADBD := true
 TW_USE_TOOLBOX := true
 TARGET_USES_MKE2FS := true
-TW_NO_LEGACY_PROPS := true
-TW_NO_BIND_SYSTEM := true
-FOX_BUILD_DEVICE=m35x
-
-# Pixel format
-TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
-RECOVERY_SDCARD_ON_DATA := true
 
 # -------------------------------------------------------------
 # Crypto / F2FS / Decryption
 # -------------------------------------------------------------
+TW_INCLUDE_F2FS_SUPPORT := true
+TW_USE_NEW_FBE_DECRYPTION := true
+PLATFORM_SECURITY_PATCH := 2099-12-31
+VENDOR_SECURITY_PATCH := 2099-12-31
+PLATFORM_VERSION := 12
 TW_INCLUDE_CRYPTO := true
 TW_INCLUDE_CRYPTO_FBE := true
 TW_INCLUDE_FBE_METADATA_DECRYPT := true
-TW_INCLUDE_F2FS_SUPPORT := true
-TW_USE_FSCRYPT_POLICY := 1
-TW_USE_NEW_FBE_DECRYPTION := true
 BOARD_USES_METADATA_PARTITION := true
-
-# -------------------------------------------------------------
-# Build System Workarounds
-# -------------------------------------------------------------
-ALLOW_MISSING_DEPENDENCIES := true
-DISABLE_ARTIFACT_PATH_REQUIREMENTS := true
-BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
+PLATFORM_VERSION_LAST_STABLE := $(PLATFORM_VERSION)
+VENDOR_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)
+BOOT_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)
+TW_USE_FSCRYPT_POLICY := 2
+PLATFORM_VERSION := 14
 
 # A/B OTA (disabled)
 AB_OTA_UPDATER := false
 
-#OF_stuffs
-ALLOW_MISSING_DEPENDENCIES=true
- LC_ALL="C"
-# Maintaining Info
- OF_MAINTAINER=Shailesh
 TW_DEVICE_VERSION := Shailesh
- FOX_MAINTAINER_PATCH_VERSION=$(date +"%Y%m%d")
- FOX_BUILD_TYPE=Unofficial_M35x
-# Magisk
- FOX_USE_SPECIFIC_MAGISK_ZIP=~/misc/Magisk-v28.1.zip
-# Functions and Binaries
- FOX_REPLACE_TOOLBOX_GETPROP=1
- FOX_USE_TAR_BINARY=1
- FOX_USE_SED_BINARY=1
- FOX_USE_BASH_SHELL=1
- FOX_ASH_IS_BASH=1
- FOX_USE_GREP_BINARY=1
- FOX_USE_XZ_UTILS=1
- FOX_USE_NANO_EDITOR=1
- OF_ENABLE_LPTOOLS=1
- FOX_DELETE_AROMAFM=1
- FOX_ENABLE_APP_MANAGER=1
-OF_FLASHLIGHT_ENABLE := 1
-OF_ENABLE_USB_STORAGE := 1
-
-
-DEXPREOPT_GENERATE_APEX_IMAGE := true
-TW_NO_LEGACY_PROPS := true
 
 # USB
 TW_EXCLUDE_DEFAULT_USB_INIT := true
